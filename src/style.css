@@ -1,0 +1,23 @@
+/*!
+Theme Name: WP Mini
+Theme URI: https://enoi.se/
+Description: Minimal WordPress theme by ENOISE.
+Author: ENOISE
+Version: 1.0
+License: Other
+License URI: none
+Tags: enoise, e-noise, mini, minimal, clean
+*/
+
+html, body {
+  height: 100%;
+}
+
+body {
+  padding-top: 70px;
+}
+
+.admin-bar .navbar {
+  margin-top: 32px;
+}
+

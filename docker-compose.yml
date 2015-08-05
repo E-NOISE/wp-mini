@@ -1,0 +1,16 @@
+wp:
+  image: wordpress
+  ports:
+    - 8080:80
+  links:
+    - db:mysql
+  volumes:
+    - /Users/lupo/work/enoise/wp-mini/src:/var/www/html/wp-content/themes/wp-mini
+
+db:
+  image: mariadb
+  environment:
+    MYSQL_ROOT_PASSWORD: secret
+  ports:
+    - 3306:3306
+
