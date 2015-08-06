@@ -8,9 +8,6 @@
   </ul>
 </footer>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-<script src="<?php bloginfo('template_url'); ?>/main.js"></script>
 <?php wp_footer(); ?>
 </body>
 </html>
