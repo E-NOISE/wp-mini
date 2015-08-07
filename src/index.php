@@ -5,8 +5,9 @@ Template Name: Index
 get_header();
 ?>
 
-<?php if (have_posts()) : ?>
-<?php while (have_posts()) : the_post(); ?>
+<?php if ( have_posts() ) : ?>
+<?php while ( have_posts() ) : the_post(); ?>
+
 <article class="posts-article" id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
   <header class="entry-header">
     <h2 class="entry-title">
@@ -15,14 +16,14 @@ get_header();
       </a>
     </h2>
     <p class="post-author-and-date">
-      Publicado por 
+      <?php _e( 'Published by' , $theme_name ); ?> 
       <span class="post-author"><?php the_author(); ?></span>
-      el
+      <?php _e( 'on' , $theme_name ); ?>
       <span class="post-date"><?php the_time("D j M Y"); ?></span>
     </p>
   </header>
 
-  <?php if (is_single()) : ?>
+  <?php if ( is_single() ) : ?>
     <div class="post-body">
       <?php the_content(); ?>
     </div>
@@ -39,15 +40,22 @@ get_header();
   <?php endif ; ?>
 
   <footer>
-    <div class="post-categories">Categorías: <?php echo get_the_category_list(','); ?></div>  
-    <div class="post-tags">Etiquetas: <?php the_tags(); ?></div>
-    <?php if (is_single()) : ?>
+    <div class="post-categories">
+      <?php echo __( 'Categories', $theme_name ).': '.get_the_category_list( ',' ); ?>
+    </div>
+    <?php if ( has_tag() ) : ?>
+    <div class="post-tags">
+      <?php echo __('Tags', $theme_name ).': '.get_the_tags(); ?>
+    </div>
+    <?php endif; ?>
+    <?php if ( is_single() ) : ?>
     <?php comments_template(); ?> 
     <?php else : ?>
     <?php comments_popup_link(); ?>
     <?php endif; ?>
   </footer>
 </article>
+
 <?php endwhile; ?>
 <?php endif; ?>
 

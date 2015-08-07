@@ -10,11 +10,11 @@
 </head>
 <body <?php body_class(); ?>>
 
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav id="main-navbar" class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
+        <span class="sr-only"><?php _e( 'Toggle navigation', $theme_name ); ?></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>

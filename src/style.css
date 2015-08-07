@@ -6,7 +6,7 @@ Author: ENOISE
 Version: 1.0
 License: Other
 License URI: none
-Tags: responsive-layout, accessibility-ready, custom-background, custom-colors, custom-menu, featured-images, microformats, theme-options, translation-ready
+Tags: responsive-layout, accessibility-ready, custom-header, custom-background, custom-colors, custom-menu, featured-images, microformats, theme-options, translation-ready
 */
 
 html, body {
@@ -17,7 +17,21 @@ body {
   padding-top: 70px;
 }
 
+a:hover {
+  text-decoration: none;
+}
+
 .admin-bar .navbar {
   margin-top: 32px;
 }
 
+.post-featured-image {
+  margin-bottom: 20px;
+  background-size: cover;
+  background-position: 50%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 27em;
+}
