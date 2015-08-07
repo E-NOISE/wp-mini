@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WP Mini Theme\n"
-"POT-Creation-Date: 2015-08-07 11:22-0500\n"
-"PO-Revision-Date: 2015-08-07 11:23-0500\n"
+"POT-Creation-Date: 2015-08-07 14:06-0500\n"
+"PO-Revision-Date: 2015-08-07 14:07-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en_GB\n"
@@ -15,32 +15,48 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: functions.php:53 functions.php:119
-msgid "Background Color"
-msgstr ""
-
-#: functions.php:67
+#: functions.php:50
 msgid "Text Color"
 msgstr ""
 
-#: functions.php:81 functions.php:133
+#: functions.php:64
 msgid "Links Color"
 msgstr ""
 
-#: functions.php:95
+#: functions.php:78
 msgid "Links Hover Color"
 msgstr ""
 
-#: functions.php:105
-msgid "Header Settings"
+#: functions.php:92
+msgid "Header Background Color"
 msgstr ""
 
-#: functions.php:108
-msgid "Change header options here."
+#: functions.php:106
+msgid "Header Border Color"
+msgstr ""
+
+#: functions.php:120
+msgid "Article Background Color"
+msgstr ""
+
+#: functions.php:128
+msgid "Layout"
+msgstr ""
+
+#: functions.php:136
+msgid "Layout columns"
 msgstr ""
 
 #: functions.php:148
-msgid "Border Color"
+msgid "Fonts"
+msgstr ""
+
+#: functions.php:156
+msgid "Text font family"
+msgstr ""
+
+#: functions.php:172
+msgid "Text font size"
 msgstr ""
 
 #: header.php:17
@@ -57,10 +73,6 @@ msgstr ""
 
 #: index.php:44
 msgid "Categories"
-msgstr ""
-
-#: index.php:48
-msgid "Tags"
 msgstr ""
 
 #: searchform.php:5
