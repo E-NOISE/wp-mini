@@ -1,1 +1,5 @@
-console.log('hey');
+jQuery(function ($) {
+
+  $('html').removeClass('no-js');
+
+});

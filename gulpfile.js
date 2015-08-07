@@ -1,3 +1,5 @@
+var fs = require('fs');
+var path = require('path');
 var gulp = require('gulp');
 var jshint = require('gulp-jshint');
 var browserify = require('browserify');
@@ -7,6 +9,8 @@ var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
+var Pageres = require('pageres');
+var rimraf = require('rimraf');
 
 
 gulp.task('lint', function () {
@@ -39,8 +43,25 @@ gulp.task('css', function () {
 });
 
 
+gulp.task('screenshot', function (done) {
+  var host = '192.168.99.100';
+  var port = 8080;
+  var dest = path.join(__dirname, 'tmp');
+  var pageres = new Pageres({ delay: 2 })
+    .src(host + ':' + port, ['880x660' ]/*, { crop: true }*/)
+    .dest(dest);
+
+  pageres.run(function (err) {
+    if (err) { return done(err); }
+    fs.renameSync(path.join(dest, host + '!' + port + '-880x660.png'), path.join(__dirname, 'src', 'screenshot.png'));
+    rimraf(dest, done);
+  });
+});
+
+
 gulp.task('copy', function () {
-  gulp.src([ '*.php' ], { cwd: 'src' }).pipe(gulp.dest('dist'));
+  gulp.src([ '*.php', 'screenshot.png' ], { cwd: 'src' })
+    .pipe(gulp.dest('dist'));
 });
 
 

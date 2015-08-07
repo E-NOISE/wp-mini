@@ -3,9 +3,13 @@
 </div>
 
 <footer id="footer">
-  <ul class="nav container">
-    <li><a href="http://foo.com/">Blah blah blah</a></li>
-  </ul>
+  <?php wp_nav_menu(array(
+    'theme_location' => 'footer',
+    'container' => '',
+    //'menu_id' => 'navbar-collapse-1',
+    //'menu_class' => 'collapse navbar-collapse',
+    'fallback_cb' => false
+  )); ?>
 </footer>
 
 <?php wp_footer(); ?>

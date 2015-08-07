@@ -14,7 +14,13 @@ function wp_mini_scripts() {
 add_action( 'wp_enqueue_scripts', 'wp_mini_scripts' );
 
 
-$sidebar = array(
+register_nav_menus( array(
+  'main' => 'Main Navigation Menu',
+  'footer' => 'Footer Menu',
+) );
+
+
+register_sidebar( array(
   'name'          => 'Sidebar',
   'id'            => "sidebar",
   'description'   => '',
@@ -23,9 +29,7 @@ $sidebar = array(
   'after_widget'  => "</article>\n",
   'before_title'  => '<h2 class="widgettitle">',
   'after_title'   => "</h2>\n",
-);
-
-register_sidebar( $sidebar );
+) );
 
 
 add_theme_support( 'post-thumbnails' );

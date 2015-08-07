@@ -23,12 +23,14 @@
         <?php bloginfo('name'); ?>
       </a>
     </div>
-    <div class="collapse navbar-collapse" id="navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <?php wp_list_categories('title_li=&hide_empty=1'); ?>
-        <?php wp_list_pages('title_li='); ?>
-      </ul>
-    </div>
+    <?php wp_nav_menu(array(
+      'theme_location' => 'main',
+      'container' => 'div',
+      'container_class' => 'collapse navbar-collapse',
+      'container_id' => 'navbar-collapse-1',
+      'menu_class' => 'nav navbar-nav',
+      'fallback_cb' => false
+    )); ?>
   </div>
 </nav>
 
