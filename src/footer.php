@@ -5,9 +5,6 @@
 <footer id="footer">
   <?php wp_nav_menu(array(
     'theme_location' => 'footer',
-    'container' => '',
-    //'menu_id' => 'navbar-collapse-1',
-    //'menu_class' => 'collapse navbar-collapse',
     'fallback_cb' => false
   )); ?>
 </footer>
