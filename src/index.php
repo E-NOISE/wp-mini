@@ -45,7 +45,7 @@ get_header();
     </div>
     <?php if ( has_tag() ) : ?>
     <div class="post-tags">
-      <?php echo __('Tags', $theme_name ).': '.get_the_tags(); ?>
+      <?php the_tags(); ?>
     </div>
     <?php endif; ?>
     <?php if ( is_single() ) : ?>

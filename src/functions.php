@@ -35,27 +35,10 @@ register_sidebar( array(
 ) );
 
 
-add_theme_support( 'post-thumbnails' );
-
-
 function wp_mini_customize_register( $wp_customize ) {
   //
   // Colours
   //
-  $wp_customize->add_setting( 'wp_mini_colors_bg' , array(
-    'default'    => '#fff',
-  ) );
-
-  $wp_customize->add_control( new WP_Customize_Color_Control(
-    $wp_customize,
-    'wp_mini_colors_bg_control',
-    array(
-      'label'      => __( 'Background Color', $theme_name ),
-      'section'    => 'colors',
-      'settings'   => 'wp_mini_colors_bg',
-    )
-  ) );
-
   $wp_customize->add_setting( 'wp_mini_colors_text' , array(
     'default'    => '#333',
   ) );
@@ -98,57 +81,98 @@ function wp_mini_customize_register( $wp_customize ) {
     )
   ) );
 
-  //
-  // Header Settings
-  //
-  $wp_customize->add_section( 'wp_mini_header_section' , array(
-    'title' => __( 'Header Settings', $theme_name ),
-    'priority' => 100,
-    'capability' => 'edit_theme_options',
-    'description' => __( 'Change header options here.', $theme_name ),
-  ) );
-
-  $wp_customize->add_setting( 'wp_mini_header_bgcolor' , array(
+  $wp_customize->add_setting( 'wp_mini_colors_header_bg' , array(
     'default'    => '#f8f8f8',
   ) );
 
   $wp_customize->add_control( new WP_Customize_Color_Control(
     $wp_customize,
-    'wp_mini_header_bgcolor_control',
+    'wp_mini_colors_header_bg_control',
     array(
-      'label'      => __( 'Background Color', $theme_name ),
-      'section'    => 'wp_mini_header_section',
-      'settings'   => 'wp_mini_header_bgcolor',
+      'label'      => __( 'Header Background Color', $theme_name ),
+      'section'    => 'colors',
+      'settings'   => 'wp_mini_colors_header_bg',
     )
   ) );
 
-  $wp_customize->add_setting( 'wp_mini_header_textcolor' , array(
-    'default'    => '#777',
-  ) );
-
-  $wp_customize->add_control( new WP_Customize_Color_Control(
-    $wp_customize,
-    'wp_mini_header_textcolor_control',
-    array(
-      'label'      => __( 'Links Color', $theme_name ),
-      'section'    => 'wp_mini_header_section',
-      'settings'   => 'wp_mini_header_textcolor',
-    )
-  ) );
-
-  $wp_customize->add_setting( 'wp_mini_header_bordercolor' , array(
+  $wp_customize->add_setting( 'wp_mini_colors_header_border' , array(
     'default'    => '#e7e7e7',
-    //'transport'  => 'refresh',
   ) );
 
   $wp_customize->add_control( new WP_Customize_Color_Control(
     $wp_customize,
-    'wp_mini_header_bordercolor_control',
+    'wp_mini_colors_header_border_control',
     array(
-      'label'      => __( 'Border Color', $theme_name ),
-      'section'    => 'wp_mini_header_section',
-      'settings'   => 'wp_mini_header_bordercolor',
+      'label'      => __( 'Header Border Color', $theme_name ),
+      'section'    => 'colors',
+      'settings'   => 'wp_mini_colors_header_border',
     )
+  ) );
+
+  $wp_customize->add_setting( 'wp_mini_colors_article_bg' , array(
+    'default'    => 'transparent',
+  ) );
+
+  $wp_customize->add_control( new WP_Customize_Color_Control(
+    $wp_customize,
+    'wp_mini_colors_article_bg_control',
+    array(
+      'label'      => __( 'Article Background Color', $theme_name ),
+      'section'    => 'colors',
+      'settings'   => 'wp_mini_colors_article_bg',
+    )
+  ) );
+
+
+  $wp_customize->add_section( 'wp_mini_layout', array(
+    'title' => __( 'Layout', $theme_name ),
+  ) );
+
+  $wp_customize->add_setting( 'wp_mini_layout_cols', array(
+    'default' => '1-col',
+  ) );
+
+  $wp_customize->add_control( 'wp_mini_layout_cols_control', array(
+    'label' => __( 'Layout columns', $theme_name ),
+    'section' => 'wp_mini_layout',
+    'settings' => 'wp_mini_layout_cols',
+    'type' => 'radio',
+    'choices' => array(
+      '1-col' => '1 column',
+      '2-col' => '2 columns',
+    )
+  ) );
+
+
+  $wp_customize->add_section( 'wp_mini_fonts', array(
+    'title' => __( 'Fonts', $theme_name ),
+  ) );
+
+  $wp_customize->add_setting( 'wp_mini_fonts_text_family', array(
+    'default' => 'sans-serif',
+  ) );
+
+  $wp_customize->add_control( 'wp_mini_fonts_text_family_control', array(
+    'label' => __( 'Text font family', $theme_name ),
+    'section' => 'wp_mini_fonts',
+    'settings' => 'wp_mini_fonts_text_family',
+    'type' => 'radio',
+    'choices' => array(
+      'sans-serif' => 'sans-serif',
+      'serif' => 'serif',
+      'monospace' => 'monospace',
+    )
+  ) );
+
+  $wp_customize->add_setting( 'wp_mini_fonts_text_size', array(
+    'default' => '14',
+  ) );
+
+  $wp_customize->add_control( 'wp_mini_fonts_text_size_control', array(
+    'label' => __( 'Text font size', $theme_name ),
+    'section' => 'wp_mini_fonts',
+    'settings' => 'wp_mini_fonts_text_size',
+    'type' => 'number',
   ) );
 }
 
@@ -156,24 +180,39 @@ add_action( 'customize_register', 'wp_mini_customize_register' );
 
 
 function wp_mini_dynamic_css() {
+  $bg_repeat = get_theme_mod( 'background_repeat' );
+  $bg_attachment = get_theme_mod( 'background_attachment' );
   ?>
   <style type='text/css'>
-  html, body {
-    background-color: <?php echo get_theme_mod('wp_mini_colors_bg'); ?>;
-    color: <?php echo get_theme_mod('wp_mini_colors_text'); ?>;
+  body {
+    background-color: #<?php echo get_theme_mod( 'background_color', 'fff' ); ?>;
+    color: <?php echo get_theme_mod( 'wp_mini_colors_text' ); ?>;
+    font-family: <?php echo get_theme_mod( 'wp_mini_fonts_text_family', 'sans-serif' ); ?>;
+    font-size: <?php echo get_theme_mod( 'wp_mini_fonts_text_size', '14' ); ?>px;
   }
+  <?php if ( $bg_repeat == 'no-repeat' && $bg_attachment == 'fixed' ) : ?>
+  body.custom-background {
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+  <?php endif; ?>
   a {
-    color: <?php echo get_theme_mod('wp_mini_colors_links'); ?>;
+    color: <?php echo get_theme_mod( 'wp_mini_colors_links' ); ?>;
   }
   a:hover {
-    color: <?php echo get_theme_mod('wp_mini_colors_links_hover'); ?>;
+    color: <?php echo get_theme_mod( 'wp_mini_colors_links_hover' ); ?>;
   }
   #main-navbar {
-    background-color: <?php echo get_theme_mod('wp_mini_header_bgcolor'); ?>;
-    border-color: <?php echo get_theme_mod('wp_mini_header_bordercolor'); ?>;
+    background-color: <?php echo get_theme_mod( 'wp_mini_colors_header_bg' ); ?>;
+    border-color: <?php echo get_theme_mod( 'wp_mini_colors_header_border' ); ?>;
   }
-  #main-navbar a {
-    color: <?php echo get_theme_mod('wp_mini_header_textcolor'); ?>;
+  #main-navbar, #main-navbar a {
+    color: #<?php echo get_theme_mod( 'header_textcolor' , '777' ); ?>;
+  }
+  #content > article {
+    background-color: <?php echo get_theme_mod( 'wp_mini_colors_article_bg', 'transparent' ); ?>;
   }
   </style>
   <?php
@@ -183,8 +222,16 @@ add_action( 'wp_head' , 'wp_mini_dynamic_css' );
 
 
 //
+// Theme features.
+//
+add_theme_support( 'post-thumbnails' );
+add_theme_support( 'custom-header' );
+add_theme_support( 'custom-background' );
+add_theme_support( 'post-formats' );
+
+
+//
 // l10n and i18n
 //
-
 load_theme_textdomain( $theme_name, templatepath.'/languages' );
 

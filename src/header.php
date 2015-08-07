@@ -35,5 +35,6 @@
 </nav>
 
 <div id="main" class="container">
-<div id="content" class="col-md-8">
+<?php $wp_mini_layout_cols = get_theme_mod('wp_mini_layout_cols', '1-col'); ?>
+<div id="content" class="col-md-<?php echo ( $wp_mini_layout_cols == '1-col' ) ? '12' : '8' ?>">
 
