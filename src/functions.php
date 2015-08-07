@@ -19,13 +19,23 @@ add_action( 'wp_enqueue_scripts', 'wp_mini_scripts' );
 
 register_nav_menus( array(
   'main' => 'Main Navigation Menu',
-  'footer' => 'Footer Menu',
 ) );
 
 
 register_sidebar( array(
   'name'          => 'Sidebar',
   'id'            => "sidebar",
+  'description'   => '',
+  'class'         => '',
+  'before_widget' => '<article id="%1$s" class="widget %2$s">',
+  'after_widget'  => "</article>\n",
+  'before_title'  => '<h2 class="widgettitle">',
+  'after_title'   => "</h2>\n",
+) );
+
+register_sidebar( array(
+  'name'          => 'Footer',
+  'id'            => "footer",
   'description'   => '',
   'class'         => '',
   'before_widget' => '<article id="%1$s" class="widget %2$s">',
@@ -202,6 +212,7 @@ function wp_mini_dynamic_css() {
     color: <?php echo get_theme_mod( 'wp_mini_colors_links' ); ?>;
   }
   a:hover {
+    background-color: <?php echo get_theme_mod( 'wp_mini_colors_links' ); ?>;
     color: <?php echo get_theme_mod( 'wp_mini_colors_links_hover' ); ?>;
   }
   #main-navbar {
@@ -213,6 +224,14 @@ function wp_mini_dynamic_css() {
   }
   #content > article {
     background-color: <?php echo get_theme_mod( 'wp_mini_colors_article_bg', 'transparent' ); ?>;
+  }
+  #footer .menu-item a {
+    background-color: <?php echo get_theme_mod( 'wp_mini_colors_text' ); ?>;
+    color: #<?php echo get_theme_mod( 'background_color', 'fff' ); ?>;
+  }
+  #footer .menu-item a:hover {
+    background-color: <?php echo get_theme_mod( 'wp_mini_colors_links' ); ?>;
+    color: #<?php echo get_theme_mod( 'wp_mini_colors_article_bg', 'transparent' ); ?>;
   }
   </style>
   <?php
