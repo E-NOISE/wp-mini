@@ -139,7 +139,7 @@ function wp_mini_customize_register( $wp_customize ) {
   ) );
 
   $wp_customize->add_setting( 'wp_mini_layout_cols', array(
-    'default' => '1-col',
+    'default' => '2-col',
   ) );
 
   $wp_customize->add_control( 'wp_mini_layout_cols_control', array(

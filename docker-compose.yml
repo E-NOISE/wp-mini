@@ -6,6 +6,18 @@ wp:
     - db:mysql
   volumes:
     - /Users/lupo/work/enoise/wp-mini/src:/var/www/html/wp-content/themes/wp-mini
+  volumes_from:
+    - data
+  cpu_shares: 1024
+  mem_limit: 256m
+
+data:
+  image: enoise/s3fs
+  environment:
+    AWSACCESSKEYID: "AKIAJ7FI3G4MVRJO5JZQ"
+    AWSSECRETACCESSKEY: "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"
+  cpu_shares: 512
+  mem_limit: 256m
 
 db:
   image: mariadb
@@ -13,4 +25,6 @@ db:
     MYSQL_ROOT_PASSWORD: secret
   ports:
     - 3306:3306
+  cpu_shares: 1024
+  mem_limit: 512m
 
