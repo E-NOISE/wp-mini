@@ -5,7 +5,7 @@ wp:
   links:
     - db:mysql
   volumes:
-    - /Users/lupo/work/enoise/wp-mini/src:/var/www/html/wp-content/themes/wp-mini
+    - /Users/lupo/work/enoise/wp-mini/dist:/var/www/html/wp-content/themes/wp-mini
 
 db:
   image: mariadb

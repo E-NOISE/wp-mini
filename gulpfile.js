@@ -2,15 +2,12 @@ var fs = require('fs');
 var path = require('path');
 var gulp = require('gulp');
 var jshint = require('gulp-jshint');
-var browserify = require('browserify');
 var minifyCss = require('gulp-minify-css');
-var gutil = require('gulp-util');
-var source = require('vinyl-source-stream');
-var buffer = require('vinyl-buffer');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var Pageres = require('pageres');
 var rimraf = require('rimraf');
+var replace = require('gulp-replace');
 
 
 gulp.task('lint', function () {
@@ -22,14 +19,8 @@ gulp.task('lint', function () {
 });
 
 
-gulp.task('browserify', function () {
-  var bundler = browserify('./src/main.js');
-  bundler.ignore('jquery');
-  return bundler.bundle()
-    .on('error', gutil.log.bind(gutil, 'Browserify Error'))
-    .pipe(source('bundle.js'))
-    .pipe(buffer())
-    .pipe(gulp.dest('src'))
+gulp.task('uglify', function () {
+  return gulp.src( [ './src/main.js'] )
     .pipe(uglify())
     .pipe(rename({ extname: '.min.js' }))
     .pipe(gulp.dest('dist'));
@@ -60,11 +51,24 @@ gulp.task('screenshot', function (done) {
 
 
 gulp.task('copy', function () {
-  gulp.src([ '*.php', 'screenshot.png' ], { cwd: 'src' })
+  return gulp.src([
+    '*.php',
+    'languages/*',
+    'main.js',
+    'screenshot.png'
+  ], { cwd: 'src' })
+    .pipe(replace(
+      "'main', get_template_directory_uri() . '/main.js'",
+      "'main', get_template_directory_uri() . '/main.min.js'"
+    ))
     .pipe(gulp.dest('dist'));
 });
 
 
-gulp.task('build', [ 'browserify', 'css', 'copy' ]);
+gulp.task('watch', function () {
+  gulp.watch([ 'src/**/*' ], [ 'build' ]);
+});
+
+gulp.task('build', [ 'uglify', 'css', 'copy' ]);
 gulp.task('default', [ 'lint', 'build' ]);
 
