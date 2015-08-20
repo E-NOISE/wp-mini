@@ -8,6 +8,8 @@ var rename = require('gulp-rename');
 var Pageres = require('pageres');
 var rimraf = require('rimraf');
 var replace = require('gulp-replace');
+var zip = require('gulp-zip');
+var pkg = require('./package.json');
 
 
 gulp.task('lint', function () {
@@ -44,19 +46,17 @@ gulp.task('screenshot', function (done) {
 
   pageres.run(function (err) {
     if (err) { return done(err); }
-    fs.renameSync(path.join(dest, host + '!' + port + '-880x660.png'), path.join(__dirname, 'src', 'screenshot.png'));
+    fs.renameSync(
+      path.join(dest, host + '!' + port + '-880x660.png'),
+      path.join(__dirname, 'dist', 'screenshot.png')
+    );
     rimraf(dest, done);
   });
 });
 
 
-gulp.task('copy', function () {
-  return gulp.src([
-    '*.php',
-    'languages/*',
-    'main.js',
-    'screenshot.png'
-  ], { cwd: 'src' })
+gulp.task('copy:src', function () {
+  return gulp.src([ '*.php', 'main.js' ], { cwd: 'src' })
     .pipe(replace(
       "'main', get_template_directory_uri() . '/main.js'",
       "'main', get_template_directory_uri() . '/main.min.js'"
@@ -64,10 +64,25 @@ gulp.task('copy', function () {
     .pipe(gulp.dest('dist'));
 });
 
+gulp.task('copy:lang', function () {
+  return gulp.src([ '*' ], { cwd: 'src/languages' })
+    .pipe(gulp.dest('dist/languages'));
+});
+
+gulp.task('copy', [ 'copy:src', 'copy:lang' ]);
+
+
+gulp.task('zip', [ 'build' ], function () {
+  return gulp.src('dist/**/*')
+    .pipe(zip(pkg.name + '-' + pkg.version + '.zip'))
+    .pipe(gulp.dest('.'));
+});
+
 
 gulp.task('watch', function () {
   gulp.watch([ 'src/**/*' ], [ 'build' ]);
 });
+
 
 gulp.task('build', [ 'uglify', 'css', 'copy' ]);
 gulp.task('default', [ 'lint', 'build' ]);
