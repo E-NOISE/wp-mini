@@ -40,6 +40,18 @@ pre {
   margin-top: 32px;
 }
 
+#sidebar {
+  font-size: 0.9em;
+}
+
+#sidebar h2 {
+  font-size: 20px;
+}
+
+#sidebar .widget {
+  margin-bottom: 30px;
+}
+
 #footer {
   font-size: 0.9em;
 }

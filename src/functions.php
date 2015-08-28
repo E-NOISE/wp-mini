@@ -1,8 +1,5 @@
 <?php
 
-$theme_name = 'wp-mini';
-
-
 function wp_mini_scripts() {
   $bs_css = '//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css';
   $bs_js = '//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js';
@@ -11,7 +8,7 @@ function wp_mini_scripts() {
   wp_enqueue_style( 'theme', get_stylesheet_uri(), array('bootstrap') );
 
   wp_enqueue_script( 'bootstrap', $bs_js, array('jquery'), '1.0.0', true );
-  wp_enqueue_script( 'main', get_template_directory_uri() . '/main.js', array('jquery', 'bootstrap'), '1.0.0', true );
+  wp_enqueue_script( 'main', get_template_directory_uri() . '/main.min.js', array('jquery', 'bootstrap'), '1.0.0', true );
 }
 
 add_action( 'wp_enqueue_scripts', 'wp_mini_scripts' );
@@ -57,7 +54,7 @@ function wp_mini_customize_register( $wp_customize ) {
     $wp_customize,
     'wp_mini_colors_text_control',
     array(
-      'label'      => __( 'Text Color', $theme_name ),
+      'label'      => __( 'Text Color', 'wp-mini' ),
       'section'    => 'colors',
       'settings'   => 'wp_mini_colors_text',
     )
@@ -71,7 +68,7 @@ function wp_mini_customize_register( $wp_customize ) {
     $wp_customize,
     'wp_mini_colors_links_control',
     array(
-      'label'      => __( 'Links Color', $theme_name ),
+      'label'      => __( 'Links Color', 'wp-mini' ),
       'section'    => 'colors',
       'settings'   => 'wp_mini_colors_links',
     )
@@ -85,7 +82,7 @@ function wp_mini_customize_register( $wp_customize ) {
     $wp_customize,
     'wp_mini_colors_links_hover_control',
     array(
-      'label'      => __( 'Links Hover Color', $theme_name ),
+      'label'      => __( 'Links Hover Color', 'wp-mini' ),
       'section'    => 'colors',
       'settings'   => 'wp_mini_colors_links_hover',
     )
@@ -99,7 +96,7 @@ function wp_mini_customize_register( $wp_customize ) {
     $wp_customize,
     'wp_mini_colors_header_bg_control',
     array(
-      'label'      => __( 'Header Background Color', $theme_name ),
+      'label'      => __( 'Header Background Color', 'wp-mini' ),
       'section'    => 'colors',
       'settings'   => 'wp_mini_colors_header_bg',
     )
@@ -113,7 +110,7 @@ function wp_mini_customize_register( $wp_customize ) {
     $wp_customize,
     'wp_mini_colors_header_border_control',
     array(
-      'label'      => __( 'Header Border Color', $theme_name ),
+      'label'      => __( 'Header Border Color', 'wp-mini' ),
       'section'    => 'colors',
       'settings'   => 'wp_mini_colors_header_border',
     )
@@ -127,7 +124,7 @@ function wp_mini_customize_register( $wp_customize ) {
     $wp_customize,
     'wp_mini_colors_article_bg_control',
     array(
-      'label'      => __( 'Article Background Color', $theme_name ),
+      'label'      => __( 'Article Background Color', 'wp-mini' ),
       'section'    => 'colors',
       'settings'   => 'wp_mini_colors_article_bg',
     )
@@ -135,7 +132,7 @@ function wp_mini_customize_register( $wp_customize ) {
 
 
   $wp_customize->add_section( 'wp_mini_layout', array(
-    'title' => __( 'Layout', $theme_name ),
+    'title' => __( 'Layout', 'wp-mini' ),
   ) );
 
   $wp_customize->add_setting( 'wp_mini_layout_cols', array(
@@ -143,7 +140,7 @@ function wp_mini_customize_register( $wp_customize ) {
   ) );
 
   $wp_customize->add_control( 'wp_mini_layout_cols_control', array(
-    'label' => __( 'Layout columns', $theme_name ),
+    'label' => __( 'Layout columns', 'wp-mini' ),
     'section' => 'wp_mini_layout',
     'settings' => 'wp_mini_layout_cols',
     'type' => 'radio',
@@ -155,7 +152,7 @@ function wp_mini_customize_register( $wp_customize ) {
 
 
   $wp_customize->add_section( 'wp_mini_fonts', array(
-    'title' => __( 'Fonts', $theme_name ),
+    'title' => __( 'Fonts', 'wp-mini' ),
   ) );
 
   $wp_customize->add_setting( 'wp_mini_fonts_text_family', array(
@@ -163,7 +160,7 @@ function wp_mini_customize_register( $wp_customize ) {
   ) );
 
   $wp_customize->add_control( 'wp_mini_fonts_text_family_control', array(
-    'label' => __( 'Text font family', $theme_name ),
+    'label' => __( 'Text font family', 'wp-mini' ),
     'section' => 'wp_mini_fonts',
     'settings' => 'wp_mini_fonts_text_family',
     'type' => 'radio',
@@ -179,10 +176,74 @@ function wp_mini_customize_register( $wp_customize ) {
   ) );
 
   $wp_customize->add_control( 'wp_mini_fonts_text_size_control', array(
-    'label' => __( 'Text font size', $theme_name ),
+    'label' => __( 'Text font size', 'wp-mini' ),
     'section' => 'wp_mini_fonts',
     'settings' => 'wp_mini_fonts_text_size',
     'type' => 'number',
+  ) );
+
+  $wp_customize->add_section( 'wp_mini_posts', array(
+    'title' => __( 'Posts', 'wp-mini' ),
+  ) );
+
+  $wp_customize->add_setting( 'wp_mini_posts_show_author', array(
+    'default' => 'yes',
+  ) );
+
+  $wp_customize->add_control( 'wp_mini_posts_show_author_control', array(
+    'label' => __( 'Show author', 'wp-mini' ),
+    'section' => 'wp_mini_posts',
+    'settings' => 'wp_mini_posts_show_author',
+    'type' => 'radio',
+    'choices' => array(
+      'yes' => 'Yes',
+      'no' => 'No',
+    ),
+  ) );
+
+  $wp_customize->add_setting( 'wp_mini_posts_show_date', array(
+    'default' => 'yes',
+  ) );
+
+  $wp_customize->add_control( 'wp_mini_posts_show_date_control', array(
+    'label' => __( 'Show date', 'wp-mini' ),
+    'section' => 'wp_mini_posts',
+    'settings' => 'wp_mini_posts_show_date',
+    'type' => 'radio',
+    'choices' => array(
+      'yes' => 'Yes',
+      'no' => 'No',
+    ),
+  ) );
+
+  $wp_customize->add_setting( 'wp_mini_posts_show_categories', array(
+    'default' => 'yes',
+  ) );
+
+  $wp_customize->add_control( 'wp_mini_posts_show_categories_control', array(
+    'label' => __( 'Show categories', 'wp-mini' ),
+    'section' => 'wp_mini_posts',
+    'settings' => 'wp_mini_posts_show_categories',
+    'type' => 'radio',
+    'choices' => array(
+      'yes' => 'Yes',
+      'no' => 'No',
+    ),
+  ) );
+
+  $wp_customize->add_setting( 'wp_mini_posts_show_tags', array(
+    'default' => 'yes',
+  ) );
+
+  $wp_customize->add_control( 'wp_mini_posts_show_tags_control', array(
+    'label' => __( 'Show tags', 'wp-mini' ),
+    'section' => 'wp_mini_posts',
+    'settings' => 'wp_mini_posts_show_tags',
+    'type' => 'radio',
+    'choices' => array(
+      'yes' => 'Yes',
+      'no' => 'No',
+    ),
   ) );
 }
 
@@ -252,5 +313,9 @@ add_theme_support( 'post-formats' );
 //
 // l10n and i18n
 //
-load_theme_textdomain( $theme_name, templatepath.'/languages' );
+function wp_mini_setup() {
+  load_theme_textdomain( 'wp-mini', get_template_directory().'/languages' );
+}
+
+add_action('after_setup_theme', 'wp_mini_setup');
 
