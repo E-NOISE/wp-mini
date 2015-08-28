@@ -56,7 +56,7 @@ gulp.task('screenshot', function (done) {
 
 
 gulp.task('copy:src', function () {
-  return gulp.src([ '*.php', 'main.js' ], { cwd: 'src' })
+  return gulp.src([ '**/*.php', 'main.js' ], { cwd: 'src' })
     .pipe(replace(
       "'main', get_template_directory_uri() . '/main.js'",
       "'main', get_template_directory_uri() . '/main.min.js'"
