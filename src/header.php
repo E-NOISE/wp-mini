@@ -13,12 +13,14 @@
 <nav id="main-navbar" class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
+      <?php if ( has_nav_menu('main') ) : ?>
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1">
         <span class="sr-only"><?php _e( 'Toggle navigation', 'wp-mini' ); ?></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
+      <?php endif; ?>
       <a class="navbar-brand" href="/">
         <?php bloginfo('name'); ?>
       </a>
@@ -33,6 +35,14 @@
     )); ?>
   </div>
 </nav>
+
+<?php if ( is_home() && display_header_text() ) : ?>
+<div id="tagline">
+  <div class="container">
+    <h4><?php bloginfo('description', 'display'); ?></h4>
+  </div>
+</div>
+<?php endif; ?>
 
 <div id="main" class="container">
 <?php $wp_mini_layout_cols = get_theme_mod('wp_mini_layout_cols', '1-col'); ?>

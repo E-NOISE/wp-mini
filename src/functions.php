@@ -253,6 +253,7 @@ add_action( 'customize_register', 'wp_mini_customize_register' );
 function wp_mini_dynamic_css() {
   $bg_repeat = get_theme_mod( 'background_repeat' );
   $bg_attachment = get_theme_mod( 'background_attachment' );
+  $header_image = get_header_image();
   ?>
   <style type='text/css'>
   body {
@@ -273,7 +274,6 @@ function wp_mini_dynamic_css() {
     color: <?php echo get_theme_mod( 'wp_mini_colors_links' ); ?>;
   }
   a:hover {
-    background-color: <?php echo get_theme_mod( 'wp_mini_colors_links' ); ?>;
     color: <?php echo get_theme_mod( 'wp_mini_colors_links_hover' ); ?>;
   }
   #main-navbar {
@@ -283,6 +283,15 @@ function wp_mini_dynamic_css() {
   #main-navbar, #main-navbar a {
     color: #<?php echo get_theme_mod( 'header_textcolor' , '777' ); ?>;
   }
+  <?php if ( $header_image ) : ?>
+  #tagline {
+    background: url(<?php echo $header_image; ?>) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+  <?php endif; ?>
   #content > article {
     background-color: <?php echo get_theme_mod( 'wp_mini_colors_article_bg', 'transparent' ); ?>;
   }
@@ -318,4 +327,29 @@ function wp_mini_setup() {
 }
 
 add_action('after_setup_theme', 'wp_mini_setup');
+
+
+
+function wp_mini_adjust_brightness( $hex, $steps ) {
+  // Steps should be between -255 and 255. Negative = darker, positive = lighter
+  $steps = max( -255, min( 255, $steps ) );
+
+  // Normalize into a six character long hex string
+  $hex = str_replace( '#', '', $hex );
+  if ( strlen( $hex ) == 3 ) {
+    $hex = str_repeat( substr( $hex, 0, 1 ), 2 ).str_repeat( substr( $hex, 1, 1 ), 2 ).str_repeat( substr( $hex, 2, 1 ), 2 );
+  }
+
+  // Split into three parts: R, G and B
+  $color_parts = str_split( $hex, 2 );
+  $return = '#';
+
+  foreach ( $color_parts as $color ) {
+    $color   = hexdec( $color ); // Convert to decimal
+    $color   = max( 0, min( 255, $color + $steps ) ); // Adjust color
+    $return .= str_pad( dechex( $color ), 2, '0', STR_PAD_LEFT ); // Make two char hex code
+  }
+
+  return $return;
+}
 
