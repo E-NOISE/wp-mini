@@ -19,7 +19,7 @@ $show_tags = get_theme_mod( 'wp_mini_posts_show_tags', 'yes' ) == 'yes';
     <?php if ( $show_date ) : ?>
     <span class="post-date">
       <?php _e( 'on' , 'wp-mini' ); ?>
-      <?php the_time("D j M Y"); ?>
+      <?php the_date(); ?> <?php the_time(); ?>
     </span>
     <?php endif; ?>
   </div>

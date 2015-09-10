@@ -36,7 +36,7 @@
   </div>
 </nav>
 
-<?php if ( is_home() && display_header_text() ) : ?>
+<?php if ( ( is_home() || is_front_page() ) && display_header_text() ) : ?>
 <div id="tagline">
   <div class="container">
     <h4><?php bloginfo('description', 'display'); ?></h4>
