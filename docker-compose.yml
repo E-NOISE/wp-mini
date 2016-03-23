@@ -1,11 +1,11 @@
 wp:
   image: wordpress
   ports:
-    - 8080:80
+    - 9999:80
   links:
     - db:mysql
   volumes:
-    - /Users/lupo/work/enoise/wp-mini/dist:/var/www/html/wp-content/themes/wp-mini
+    - ./dist:/var/www/html/wp-content/themes/wp-mini
 
 db:
   image: mariadb
